@@ -45,51 +45,7 @@ UnknownElement.print();
 
 var current : Node = null;
 var next : Node = null;
-var node : Rectangle = null;
-var nodeFocus = bind node.focused on replace {
-    if(not nodeFocus) node.requestFocus();
-};
-
-var transitioning : Boolean = false;
-
-var page : Integer = -1 on replace {
-    if(not transitioning and pdoc != null and page >= 0) {
-        transitioning = true;
-        next = pdoc.getPages()[page].createNode();
-        fitToScene(stage.scene, next);
-        current.cache = true;
-        ParallelTransition {
-            content: [
-                TranslateTransition {
-                    duration: 1s
-                    node: current
-                    byY: - stage.scene.width
-                },
-                ScaleTransition {
-                    duration: 1s
-                    node: current
-                    toX: 0.5
-                    toY: 0.5
-                }
-                    ]
-            action: function() {
-                var tmp = next;
-                next = null;
-                current = tmp;
-                transitioning = false;
-            }
-        }.play();
-    }
-}
-
-var stage : Stage = Stage {
-    title: "fxpresenter"
-    scene: Scene {
-        width: 800
-        height: 600
-        content: bind [
-            next, current,
-            node = Rectangle {
+var node : Rectangle = Rectangle {
                 focusTraversable: true
                 onKeyReleased: function(evt) {
                     if(transitioning) return;
@@ -102,10 +58,56 @@ var stage : Stage = Stage {
                     if(page >= sizeof pdoc.getPages()) tmppage = 0;
                     page = tmppage;
                 }
-            }
+            };
+var nodeFocus = bind node.focused on replace {
+    if(not nodeFocus) node.requestFocus();
+};
+
+var transitioning : Boolean = false;
+
+var page : Integer = -1 on replace {
+    if(not transitioning and pdoc != null and page >= 0) {
+        transitioning = true;
+        next = pdoc.getPages()[page].createNode();
+        fitToScene(stage.scene, next);
+        current.cache = true;
+        //ParallelTransition {
+            /*content: [
+                TranslateTransition {
+                    duration: 1s
+                    node: current
+                    byY: - stage.scene.width
+                },
+                ScaleTransition {
+                    duration: 1s
+                    node: current
+                    toX: 0.5
+                    toY: 0.5
+                }
+                    ]*/
+          //  action: function() {
+                var tmp = next;
+                next = null;
+                current = tmp;
+                transitioning = false;
+            //}
+        //}.play();
+    }
+}
+
+var stage : Stage = Stage {
+    title: "fxpresenter"
+    scene: Scene {
+        width: 800
+        height: 600
+        content: bind [
+            next, current,
+            node
         ]
     }
 }
+
+node.requestFocus();
 
 fitToScene(stage.scene, current);
 var sceneWidth = bind stage.scene.width on replace {

@@ -24,6 +24,9 @@ import com.ubivent.fxpresenter.dom.style.Style;
 import java.lang.String;
 import java.lang.System;
 import com.ubivent.fxpresenter.dom.style.StyleMap;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import com.ubivent.fxpresenter.graphics.Length;
 
 public function styleToStyleMap(map : StyleMap, styles : Style[], elem : PNode ) : Void {
 		var level = 0;
@@ -55,7 +58,9 @@ public function getStyleList(style : Style, alreadyIncluded : Style[]) : Style[]
         if(parentname != "") {
                 //println("parentname {parentname} {style.getStyleName()}");
                 var parent : Style = style.doc.getStyle(parentname, style.getFamily(), style);
-                if(Sequences.indexOf(alreadyIncluded,parent) > -1) {
+                if(parent == null) {
+                    println("parent not found! {parentname} {style.getFamily()}");
+                } else if(Sequences.indexOf(alreadyIncluded,parent) > -1) {
                         System.out.println("circular dependency in style {style}");
                 }
                 insert getStyleList(parent as Style) before list[0];
@@ -74,7 +79,35 @@ public function getStyleList(n : PElement, namespace : String, name : String, fa
         return [];
 }
 
-
+public function createTextContentNode(map : StyleMap, elem : PElement, width : Length, height : Length) : Node {
+            var group : Group = Group {};
+            var yOffset : Number = 0;
+            for(node in elem.children) {
+                var n : Node[] = [];
+                if (node instanceof Paragraph) {
+                       n = (node as Paragraph).createNode(map, width, height);
+                }
+                if (node instanceof TextList) {
+                       n = (node as TextList).createNode(map, width, height);
+                }
+                if(sizeof n > 0) {
+                    var h : Number = 0;
+                    for(tn in n) {
+                        tn.layoutY += yOffset;
+                        if(h < tn.layoutBounds.height) h = tn.layoutBounds.height;
+                    }
+                    yOffset += h;
+                    insert n into group.content;
+                }
+            }
+            if (map.textAreaVAlign == "bottom") {
+                    group.layoutY = height.getAsPixel()-group.layoutBounds.height;
+            }
+            if (map.textAreaVAlign == "middle") {
+                    group.layoutY = (height.getAsPixel()-group.layoutBounds.height)/2;
+            }
+            return group;
+}
 
 public class TextUtil {
 

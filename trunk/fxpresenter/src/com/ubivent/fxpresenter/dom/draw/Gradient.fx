@@ -27,7 +27,8 @@ import javafx.scene.paint.Color;
 
 public class Gradient extends PElement, StyleProperties {
         postinit {
-                nsURI = nsSTYLE;
+                //println("inited gradient {getStyleName()}");
+                nsURI = nsDRAW;
                 nodeName = "draw:gradient";
 	}
 

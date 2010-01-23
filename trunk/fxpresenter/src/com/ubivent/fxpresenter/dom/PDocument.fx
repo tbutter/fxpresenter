@@ -59,6 +59,21 @@ import com.ubivent.fxpresenter.dom.text.ListStyle;
 import com.ubivent.fxpresenter.dom.draw.DrawGroup;
 import com.ubivent.fxpresenter.dom.draw.Rect;
 import com.ubivent.fxpresenter.dom.draw.Gradient;
+import com.ubivent.fxpresenter.dom.text.ListHeader;
+import com.ubivent.fxpresenter.dom.draw.Line;
+import com.ubivent.fxpresenter.table.Table;
+import com.ubivent.fxpresenter.table.TableColumn;
+import com.ubivent.fxpresenter.table.TableRow;
+import com.ubivent.fxpresenter.table.TableCell;
+import com.ubivent.fxpresenter.dom.table.TableTemplate;
+import com.ubivent.fxpresenter.dom.table.FirstRow;
+import com.ubivent.fxpresenter.dom.table.LastRow;
+import com.ubivent.fxpresenter.dom.table.FirstColumn;
+import com.ubivent.fxpresenter.dom.table.LastColumn;
+import com.ubivent.fxpresenter.dom.table.OddRows;
+import com.ubivent.fxpresenter.dom.table.OddColumns;
+import com.ubivent.fxpresenter.dom.table.TableBody;
+import com.ubivent.fxpresenter.dom.draw.Ellipse;
 
 /**
  * @author thomasbutter
@@ -84,6 +99,8 @@ public class PDocument extends PNode {
 		if (family.equals("list")) {
 			list = (node as PElement).getElementsByTagNameNS(nsTEXT,
 					"list-style");
+		} else if(family == "table-template") {
+			list = (node as PElement).getElementsByTagNameNS(nsTABLE, "table-template");
 		} else {
 			list = (node as PElement).getElementsByTagNameNS(nsSTYLE, "style");
 		}
@@ -100,6 +117,8 @@ public class PDocument extends PNode {
 		// now try whole document
 		if (family.equals("list")) {
 			list = getElementsByTagNameNS(nsTEXT, "list-style");
+		} else if(family == "table-template") {
+			list = getElementsByTagNameNS(nsTABLE, "table-template");
 		} else {
 			list = getElementsByTagNameNS(nsSTYLE, "style");
 		}
@@ -185,11 +204,11 @@ public class PDocument extends PNode {
                         if(parseName(qualifiedName).equals("gradient")) {
                             ret = Gradient{};
                         }
-/*			if(parseName(qualifiedName).equals("polyline"))
-				return new Polyline(this);
+			if(parseName(qualifiedName).equals("ellipse"))
+				ret = Ellipse{};
 			if(parseName(qualifiedName).equals("line"))
-				return new Line(this);
-			if(parseName(qualifiedName).equals("connector"))
+				ret = Line{};
+			/*if(parseName(qualifiedName).equals("connector"))
 				return new Connector(this);*/
 			if(parseName(qualifiedName).equals("g"))
 				ret = DrawGroup{};
@@ -221,6 +240,8 @@ public class PDocument extends PNode {
 				ret = TextList{};
 			if(parseName(qualifiedName).equals("list-item"))
 				ret = ListItem{};
+                        if(parseName(qualifiedName).equals("list-header"))
+				ret = ListHeader{};
 			if(parseName(qualifiedName).equals("list-style"))
 				ret = ListStyle{};
 			if(parseName(qualifiedName).equals("list-level-style-bullet"))
@@ -254,6 +275,33 @@ public class PDocument extends PNode {
 			if(parseName(qualifiedName).equals("list-level-properties"))
 				ret = ListLevelProperties{};
 		}
+                if(namespaceURI.equals(nsTABLE)) {
+                    if(parseName(qualifiedName).equals("table"))
+                        ret = Table{};
+                    if(parseName(qualifiedName).equals("table-template"))
+                        ret = TableTemplate{};
+                    if(parseName(qualifiedName).equals("first-row"))
+                        ret = FirstRow{};
+                    if(parseName(qualifiedName).equals("last-row"))
+                        ret = LastRow{};
+                    if(parseName(qualifiedName).equals("first-column"))
+                        ret = FirstColumn{};
+                    if(parseName(qualifiedName).equals("last-column"))
+                        ret = LastColumn{};
+                    if(parseName(qualifiedName).equals("odd-rows"))
+                        ret = OddRows{};
+                    if(parseName(qualifiedName).equals("odd-columns"))
+                        ret = OddColumns{};
+                    if(parseName(qualifiedName).equals("body"))
+                        ret = TableBody{};
+                    if(parseName(qualifiedName).equals("table-column"))
+                        ret = TableColumn{};
+                    if(parseName(qualifiedName).equals("table-row"))
+                        ret = TableRow{};
+                    if(parseName(qualifiedName).equals("table-cell"))
+                        ret = TableCell{};
+                }
+
 		// fallback
                 if(ret == null) {
                     var elem = UnknownElement { doc: this nsURI: namespaceURI nodeName: qualifiedName };

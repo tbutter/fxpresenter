@@ -47,7 +47,7 @@ public abstract class PNode {
 	public-read protected var parent : PNode = null;
         protected var prefix : String = bind parsePrefix(nodeName);
 	protected var nsURI : String = null;
-	protected var localName : String = bind parseName(nodeName);
+	public-read protected var localName : String = bind parseName(nodeName);
         public-read protected var nodeName : String = "";
         public-read protected var doc : PDocument = null;
 

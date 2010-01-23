@@ -94,6 +94,7 @@ public class Paragraph extends PElement, StyledElement {
                                 }
                                 var mt : Text = Text {
                                     content: current
+                                    // TODO 1.3 boundsType: TextBoundsType.LOGICAL
                                 };
                                 map.setStyles(mt);
                                 var dontadd = false;

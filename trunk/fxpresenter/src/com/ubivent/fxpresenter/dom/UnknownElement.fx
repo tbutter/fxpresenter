@@ -20,6 +20,7 @@
 package com.ubivent.fxpresenter.dom;
 import java.util.HashSet;
 import java.lang.System;
+import javafx.util.Sequences;
 
 public function print() {
     for(e in unknownElements) {
@@ -27,12 +28,14 @@ public function print() {
     }
 }
 
-
 var unknownElements : HashSet = new HashSet();
+
+var ignoredElements : String[] = ["office:forms","meta:creation-date","office-styles","office-settings","office:scripts","dc:date","presentation:date-time","office:master-styles","dc:creator","office:document-settings","office:meta","office:automatic-styles","meta:user-defined","office:document-meta","style:handout-master","office:body","office:document-content","meta:editing-duration","config:config-item-set","config:config-item-map-indexed", "office:presentation", "meta:editing-cycles", "meta:document-statistic", "office:document", "meta:generator", "config:config-item-map-entry", "dc:title", "office:document-styles", "presentation:notes"];
 
 public class UnknownElement extends PElement {
     postinit {
-        unknownElements.add(nodeName);
+        if(Sequences.indexOf(ignoredElements,nodeName) == -1)
+            unknownElements.add(nodeName);
     }
 
     override public function toString() : String {
