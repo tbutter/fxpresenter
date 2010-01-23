@@ -39,35 +39,7 @@ public class TextBox extends PElement, StyledElement {
 
         public function createNode(map : StyleMap, width : Length, height : Length) : Node[] {
             TextUtil.styleToStyleMap(map, getStyleList(), this);
-            var group : Group = Group {};
-            var yOffset : Number = 0;
-            for(node in children) {
-                var n : Node[] = [];
-                if (node instanceof Paragraph) {
-                       n = (node as Paragraph).createNode(map, width, height);
-                }
-                if (node instanceof TextList) {
-                       n = (node as TextList).createNode(map, width, height);
-                }
-                if(sizeof n > 0) {
-                    var h : Number = 0;
-                    for(tn in n) {
-                        tn.layoutY += yOffset;
-                        if(h < tn.layoutBounds.height) h = tn.layoutBounds.height;
-                    }
-                    yOffset += h;
-                    insert n into group.content;
-                }
-            }
-            if (map.textAreaVAlign == "bottom") {
-                    group.layoutY = height.getAsPixel()-group.layoutBounds.height;
-            }
-            if (map.textAreaVAlign == "middle") {
-                    group.layoutY = (height.getAsPixel()-group.layoutBounds.height)/2;
-            }
-            return [
-                    group
-                   ];
+            return TextUtil.createTextContentNode(map, this, width, height);
         }
 
 	public override function getStyleList() : Style[] {

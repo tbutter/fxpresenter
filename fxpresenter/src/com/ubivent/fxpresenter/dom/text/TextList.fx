@@ -60,6 +60,9 @@ public class TextList extends PElement, StyledElement {
                 if(node instanceof ListItem) {
                     n = (node as ListItem).createNode(map, width, height);
                 }
+                if(node instanceof ListHeader) {
+                    n = (node as ListHeader).createNode(map, width, height);
+                }
                 if(sizeof n > 0) {
                     var h : Number = 0;
                     for(tn in n) {

@@ -40,7 +40,7 @@ public class StyleMap {
     public var displayDateTime : Boolean;
     public var opacity : Float = 1.0;
     public var stroke : String;
-    public var strokeColor : Color;
+    public var strokeColor : Color = Color.BLACK;
     public var markerStart : String;
     public var markerEnd : String;
     public var textAreaVAlign : String;

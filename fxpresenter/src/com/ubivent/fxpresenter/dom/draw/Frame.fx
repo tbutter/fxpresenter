@@ -23,6 +23,7 @@ import com.ubivent.fxpresenter.dom.style.StyleMap;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import com.ubivent.fxpresenter.dom.draw.TextBox;
+import com.ubivent.fxpresenter.table.Table;
 
 
 public class Frame extends DShape, StyledElement {
@@ -44,7 +45,9 @@ public class Frame extends DShape, StyledElement {
                                 insert (node as DImage).createNode(getWidth(), getHeight()) into g.content;
 			} else if(node instanceof TextBox) {
                                 insert (node as TextBox).createNode(map, getWidth(), getHeight()) into g.content;
-			} else {
+			} else if(node instanceof Table) {
+                                insert (node as Table).createNode(map, getWidth(), getHeight()) into g.content;
+                        } else {
                             println("Frame unknown {node.nodeName}");
                         }
 

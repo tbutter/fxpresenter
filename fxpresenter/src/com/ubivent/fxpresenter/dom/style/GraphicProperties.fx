@@ -21,6 +21,7 @@ package com.ubivent.fxpresenter.dom.style;
 import com.ubivent.fxpresenter.dom.PElement;
 import javafx.scene.paint.Color;
 import java.lang.String;
+import java.lang.Thread;
 
 
 public class GraphicProperties extends PElement, StyleProperties {
@@ -47,7 +48,7 @@ public class GraphicProperties extends PElement, StyleProperties {
                 }
 		var strokecolor : String = getAttributeNS(nsSVG, "stroke-color").value;
 		if(strokecolor != null and strokecolor != "") {
-                	map.strokeColor = Color.web(strokecolor);
+                        map.strokeColor = Color.web(strokecolor);
                 }
 		var marker : String = getAttributeNS(nsDRAW, "marker-end").value;
 		if(marker != null and marker != "") map.markerEnd = marker;

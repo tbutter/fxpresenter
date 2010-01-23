@@ -50,8 +50,6 @@ public class CustomShape extends DShape, StyledElement {
 			} else if(node instanceof EnhancedGeometry) {
                                 println("CustomShape EnhancedGeometry");
                                 insert (node as EnhancedGeometry).createNode(pmap, getWidth(), getHeight()) into g.content;
-                        } else {
-                            println("CustomShape unkown {node.nodeName}");
                         }
 		}
                 var group : Group = Group {};
