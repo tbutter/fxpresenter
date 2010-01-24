@@ -25,7 +25,7 @@ import com.ubivent.fxpresenter.dom.text.TextUtil;
 
 
 public class Rect extends DShape {
-    override public function createNode (map : StyleMap) : Node[] {
+    override public function createUntransformedNode (map : StyleMap) : Node[] {
         TextUtil.styleToStyleMap(map, getStyleList(), this);
         var rect = Rectangle {
             x: getX().getAsPixel()

@@ -16,7 +16,7 @@ import javafx.scene.Group;
  */
 
 public class Ellipse  extends DShape {
-    override public function createNode (map : StyleMap) : Node[] {
+    override public function createUntransformedNode (map : StyleMap) : Node[] {
         TextUtil.styleToStyleMap(map, getStyleList(), this);
         var ellipse = javafx.scene.shape.Ellipse {
             centerX: getWidth().getAsPixel()/2

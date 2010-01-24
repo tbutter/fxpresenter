@@ -25,7 +25,7 @@ import javafx.scene.Node;
 
 
 public class DrawGroup extends DShape {
-    override public function createNode (map : StyleMap) : Node[] {
+    override public function createUntransformedNode (map : StyleMap) : Node[] {
         var g : Node[];
         for(node in children) {
             if(node instanceof DShape) {

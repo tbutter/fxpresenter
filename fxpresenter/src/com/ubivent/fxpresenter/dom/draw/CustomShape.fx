@@ -37,7 +37,7 @@ public class CustomShape extends DShape, StyledElement {
                 nodeName = "draw:custom-shape";
 	}
 
-	override public function createNode(pmap : StyleMap) {
+	override public function createUntransformedNode(pmap : StyleMap) {
 		TextUtil.styleToStyleMap(pmap, getStyleList(), this);
                 var g = Group {
                     layoutX: getX().getAsPixel();
@@ -45,10 +45,8 @@ public class CustomShape extends DShape, StyledElement {
                 };
                 for(node in children) {
                         if(node instanceof DImage) {
-                                println("CustomShape drawing DImage");
-				insert (node as DImage).createNode(getWidth(), getHeight()) into g.content;
+                                insert (node as DImage).createNode(getWidth(), getHeight()) into g.content;
 			} else if(node instanceof EnhancedGeometry) {
-                                println("CustomShape EnhancedGeometry");
                                 insert (node as EnhancedGeometry).createNode(pmap, getWidth(), getHeight()) into g.content;
                         }
 		}

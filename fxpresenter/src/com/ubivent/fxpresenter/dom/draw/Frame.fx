@@ -33,7 +33,7 @@ public class Frame extends DShape, StyledElement {
             nodeName = "draw:frame";
 	}
 
-	override public function createNode(pmap : StyleMap) : Node[] {
+	override public function createUntransformedNode(pmap : StyleMap) : Node[] {
                 var map = StyleMap{};
                 TextUtil.styleToStyleMap(map, getStyleList(), this);
                 var g = Group {

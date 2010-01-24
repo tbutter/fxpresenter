@@ -30,6 +30,7 @@ import com.ubivent.fxpresenter.graphics.Length;
 import javafx.scene.Group;
 import javafx.scene.shape.Rectangle;
 import com.ubivent.fxpresenter.dom.style.StyleMap;
+import javafx.scene.paint.Color;
 
 public class Page extends PElement, StyledElement {
         override var nsURI = nsDRAW;
