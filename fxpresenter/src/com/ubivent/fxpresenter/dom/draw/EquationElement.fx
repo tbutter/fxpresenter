@@ -63,7 +63,7 @@ public class EquationElement {
                         } else if(value.equals("max")) {
                                 return Math.max(children[0].evaluate(), children[1].evaluate());
                         } else if(value.equals("if")) {
-                                if(children[0].evaluate() != 0) {
+                                if(children[0].evaluate() >= 0) {
                                         return children[1].evaluate();
                                 } // else
                                 return children[2].evaluate();
