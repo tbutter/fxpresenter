@@ -61,7 +61,7 @@ public class Line extends DShape {
 		return Length.fromString(getAttributeNS(nsSVG, "y2").value);
 	}
 
-        override public function createNode (map : StyleMap) : Node[] {
+        override public function createUntransformedNode (map : StyleMap) : Node[] {
                 TextUtil.styleToStyleMap(map, getStyleList(), this);
                 var line = javafx.scene.shape.Line {
                     startX: getX1().getAsPixel()
