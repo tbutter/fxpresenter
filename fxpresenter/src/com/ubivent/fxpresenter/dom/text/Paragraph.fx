@@ -33,6 +33,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextBoundsType;
 
 
 public class Paragraph extends PElement, StyledElement {
@@ -94,7 +95,7 @@ public class Paragraph extends PElement, StyledElement {
                                 }
                                 var mt : Text = Text {
                                     content: current
-                                    // TODO 1.3 boundsType: TextBoundsType.LOGICAL
+                                    boundsType: TextBoundsType.LOGICAL
                                 };
                                 map.setStyles(mt);
                                 var dontadd = false;
